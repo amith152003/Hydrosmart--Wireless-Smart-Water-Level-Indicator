@@ -1,14 +1,16 @@
 # Hydrosmart: Wireless Smart Water Level Indicator
 
 ## Overview
-Hydrosmart is an advanced water level monitoring system that leverages wireless communication, a touchscreen interface, and real-time data visualization to control and monitor water levels efficiently. The system consists of a transmitter and receiver module that interact seamlessly to automate water level management and motor control.
+Hydrosmart is an advanced water level monitoring system that leverages wireless communication, a touchscreen interface, and real-time data visualization to control and monitor water levels efficiently. The system consists of a transmitter and receiver module that interact seamlessly to automate water level management and motor control. Additionally, the system includes an ESP32 for WiFi connectivity, allowing remote control via a mobile app.
 
 ---
 
 ## Components Used
 | **Component**                       | **Description**                                                         |
 |-------------------------------------|-------------------------------------------------------------------------|
-| **Arduino Mega 2560**              | Microcontroller board for both transmitter and receiver.               |
+| **Arduino Nano**                   | Microcontroller board for the transmitter.                              |
+| **Arduino Mega 2560**              | Microcontroller board for the receiver.                                |
+| **ESP32**                          | WiFi-enabled microcontroller for remote control via mobile app.        |
 | **nRF24L01 PA LNA Module**         | Long-range RF communication module for wireless data transfer.          |
 | **2.4” TFT Touch Screen Shield**   | Touch-enabled LCD display for user interface and visualization.         |
 | **ULN2003 IC**                     | Used for sensing water levels through analog inputs.                    |
@@ -34,6 +36,11 @@ Hydrosmart is an advanced water level monitoring system that leverages wireless 
 | `RF24.h`             | Handles RF communication with nRF24L01 module.            |
 | `nRF24L01.h`         | Driver for nRF24L01 wireless module.                       |
 
+### ESP32
+| **Library**    | **Purpose**                                     |
+|----------------|-------------------------------------------------|
+| `WiFi.h`       | Enables WiFi functionality for ESP32.          |
+
 ---
 
 ## Key Features
@@ -52,26 +59,33 @@ Hydrosmart is an advanced water level monitoring system that leverages wireless 
 - **Color-Coded UI:** Uses a custom color scheme for enhanced visualization, configured using [RGB Color Picker](https://rgbcolorpicker.com/565).
 - **Bitmap Integration:** Displays icons generated from images converted using [Image2CPP](https://javl.github.io/image2cpp/).
 
+### ESP32
+- **WiFi Connectivity:** Connects to the mobile app via WiFi to control the system remotely.
+- **Mobile Control:** Allows for motor control (ON/OFF) through a simple web interface served by the ESP32.
+- **Sensor Data Monitoring:** Can send sensor data and motor status to the mobile app.
+
 ---
 
 ## System Setup
 ### Hardware Connections
 | **Module**                   | **Connection Details**                                                                 |
 |-------------------------------|---------------------------------------------------------------------------------------|
-| **nRF24L01 PA LNA**          | Connected via SPI pins to Arduino Mega (MISO, MOSI, SCK, CE, CSN).                    |
+| **nRF24L01 PA LNA**          | Connected via SPI pins to Arduino Nano (MISO, MOSI, SCK, CE, CSN).                    |
 | **ULN2003 IC**               | Connected to sensors for water level input.                                           |
 | **TFT Touch Screen Shield**  | Mounted directly onto Arduino Mega for display and touch inputs.                      |
 | **Relay Module**             | Connected to motor control pins on the Arduino Mega.                                   |
+| **ESP32**                    | Connected via WiFi to communicate with the mobile app and control the system.         |
 
 ### Power Supply
-- **Transmitter:** Powered by the Arduino Mega's onboard power.
+- **Transmitter:** Powered by the Arduino Nano's onboard power.
 - **Receiver:** Powered by the Arduino Mega and TFT display's onboard power.
+- **ESP32:** Powered by a separate 5V supply or through USB.
 
 ---
 
 ## Installation
 1. **Libraries:** Install the required libraries listed above in your Arduino IDE.
-2. **Transmitter Code:** Upload the transmitter code to the Arduino Mega connected to the nRF24L01 module and sensors.
+2. **Transmitter Code:** Upload the transmitter code to the Arduino Nano connected to the nRF24L01 module and sensors.
 3. **Receiver Code:** Upload the receiver code to the Arduino Mega with the TFT display and nRF24L01 module.
 4. **Power On:** Ensure all connections are secure and power both modules.
 5. **Calibrate Touch Screen:** (Optional) Perform calibration for precise touch functionality.
@@ -87,8 +101,31 @@ Hydrosmart is an advanced water level monitoring system that leverages wireless 
 
 ---
 
+## Troubleshooting
+
+### Common Issues and Solutions
+
+- **No Communication Between Transmitter and Receiver:**
+  - Ensure the nRF24L01 modules are correctly connected to both the Arduino Nano (transmitter) and Arduino Mega (receiver).
+  - Verify the power supply to the nRF24L01 modules. If the modules are not receiving sufficient power, they may not function properly.
+  - Check the wiring of the SPI pins (MISO, MOSI, SCK, CE, CSN) for any loose connections or incorrect pin assignments.
+  - Ensure the correct addresses are used for communication in the code (both transmitter and receiver should match).
+
+- **Water Level Data Not Displaying Correctly:**
+  - Check the ULN2003 IC connections to ensure the water level sensors are providing accurate input to the Arduino Nano.
+  - Verify the sensor calibration and check for any dirt or obstructions affecting the sensor's operation.
+
+- **Touchscreen Not Responding:**
+  - Recalibrate the touchscreen using the `TouchScreen.h` library if the touch input is inaccurate or unresponsive.
+  - Ensure the touchscreen wiring is correct, especially the connections for the `X` and `Y` pins.
+
+- **Motor Not Turning On/Off Correctly:**
+  - Verify the relay module is connected to the correct pins on the Arduino Mega.
+  - Ensure the motor control logic in the receiver code is correctly processing the water level data and triggering the relay.
+
+---
+
 ## Future Enhancements
-- Integration of IoT for remote monitoring and control.
 - Addition of voice command functionality.
 - Improved power efficiency for longer operational lifespan.
 
