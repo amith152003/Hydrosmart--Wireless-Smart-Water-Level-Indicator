@@ -117,3 +117,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - nRF24L01 Module Documentation: [https://www.nordicsemi.com/Products/Low-power-short-range-wireless/nRF24L01](https://www.nordicsemi.com/Products/Low-power-short-range-wireless/nRF24L01)
 - Adafruit Libraries: [https://github.com/adafruit/Adafruit_GFX](https://github.com/adafruit/Adafruit_GFX), [https://github.com/adafruit/TFTLCD-Library](https://github.com/adafruit/TFTLCD-Library)
 - ULN2003 IC Datasheet: [https://www.tescaglobal.com/product-detail/ULN2003A](https://www.tescaglobal.com/product-detail/ULN2003A)
+
+
+---
+
+**Project Status**: Completed ✅
