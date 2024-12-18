@@ -18,6 +18,17 @@ Hydrosmart is an advanced water level monitoring system that leverages wireless 
 
 ---
 
+## Touch Screen Display
+Below are some pictures of the touchscreen display used in the receiver. It shows the real-time water level and system status, providing a user-friendly interface for monitoring and control.
+
+![Touchscreen Display 1](images/photo_6165720059771730892_y.jpg)
+*The touchscreen showing the water level*
+
+![Touchscreen Display 2](images/photo_6165720059771730878_y.jpg)
+*Another view of the touchscreen with system's menu page.*
+
+---
+
 ## Libraries Used
 ### Transmitter
 | **Library**    | **Purpose**                                     |
